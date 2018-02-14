@@ -50,6 +50,47 @@ and reviewing other people's proposed changes.
 We would especially like contributions of documentation (for example, describing
 streaming SQL's intent and semantics on this site) and richer test cases.
 
+## Scripts
+
+Each test is called a *script* and consists of:
+
+* One or more stream definitions
+* A query (or possibly several) based on those streams
+* Records to insert into the stream(s) at particular times
+* Expected observations, such as which records should be emitted from
+  the query at particular times
+
+A script is defined using a Java API. Here is a simple example:
+
+```java
+import net.hydromatic.streamsqltck.Script;
+
+public class ScriptSuite {
+  public Script selectWhere() {
+    return Script.builder()
+        .definitions()
+        .stream("Orders")
+        .timestamp("rowtime").notNull()
+        .integer("orderId").notNull()
+        .varchar("product", 20).notNull()
+        .end() // stream "Orders"
+        .end() // definitions
+        .query("Q", "select orderId from Orders where product = 'milk'")
+        .input()
+        .insert("ORDERS", 0, 100, "beer")
+        .insert("ORDERS", 1, 101, "milk")
+        .end() // input
+        .expect()
+        .row("Q", 101)
+        .end() // expect
+        .build();
+  }
+}
+```
+
+There are more examples in
+[Basic.java](src/main/java/net/hydromatic/streamsqltck/basic/Basic.java).
+
 ## Get Stream-SQL-TCK
 
 If you are the author of a streaming engine, use the TCK in your test suite!
@@ -71,7 +112,7 @@ Get Stream-SQL-TCK from Maven Central:
 
 ### Download and build
 
-You need Java (1.8 or higher; 1.9 preferred), git and maven (3.5.2 or higher).
+You need Java (8 or higher; 9 preferred), git and maven (3.5.2 or higher).
 
 ```bash
 $ git clone git://github.com/Stream-SQL-TCK/Stream-SQL-TCK.git stream-sql-tck
@@ -82,7 +123,6 @@ $ mvn compile
 ## More information
 
 * License: <a href="LICENSE">Apache Software License, Version 2.0</a>
-* Author: Julian Hyde
 * Source code: http://github.com/Stream-SQL-TCK/Stream-SQL-TCK
 * Developers list:
   <a href="mailto:dev@calcite.apache.org">dev at calcite.apache.org</a>

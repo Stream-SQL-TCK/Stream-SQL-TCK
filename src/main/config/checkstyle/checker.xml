@@ -82,10 +82,6 @@
     </module>
       <!-- Switch statements should be complete and with independent cases -->
     <module name="FallThrough"/>
-    <!-- For hadoop_yarn profile, some YARN exceptions aren't loading in checkstyle -->
-    <module name="RedundantThrows">
-        <property name="suppressLoadErrors" value="true" />
-    </module>
     <module name="SimplifyBooleanExpression"/>
     <module name="SimplifyBooleanReturn"/>
       <!-- Only one statement per line allowed -->
@@ -130,9 +126,7 @@
       <property name="checkFirstSentence" value="false"/>
     </module>
       <!-- Must have class / interface header comments -->
-<!-- todo: enable
     <module name="JavadocType"/>
--->
 
     <!-- Miscellaneous other checks (tree walker).     -->
     <!-- See http://checkstyle.sf.net/config_misc.html -->
