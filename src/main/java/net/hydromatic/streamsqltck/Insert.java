@@ -16,13 +16,23 @@
  */
 package net.hydromatic.streamsqltck;
 
-/** The main class. */
-public class Main {
-  private Main() {}
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
-  public static void main(String[] args) {
-    System.out.println("Hello, world!");
+import java.util.List;
+
+/** Command to insert a record into a stream.
+ *
+ * <p>It is immutable, and is generally created via {@link ScriptBuilder}. */
+public class Insert {
+  public final String name;
+  public final List<Object> values;
+
+  /** Creates an Insert. */
+  Insert(String name, Iterable<Object> values) {
+    this.name = Preconditions.checkNotNull(name);
+    this.values = ImmutableList.copyOf(values);
   }
 }
 
-// End Main.java
+// End Insert.java

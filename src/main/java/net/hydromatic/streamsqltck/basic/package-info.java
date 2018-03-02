@@ -1,8 +1,3 @@
-<?xml version="1.0"?>
-<!DOCTYPE suppressions PUBLIC
-        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
-        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
-<!--
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,15 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<suppressions>
-  <!-- Suppress checks on generated files. -->
-  <suppress checks=".*" files=".*[/\\]target[/\\]maven-archiver[/\\]pom.properties"/>
-  <suppress checks=".*" files="git.properties"/>
-  <suppress checks=".*" files="release.properties"/>
-  <suppress checks=".*" files="LICENSE"/>
-  <suppress checks=".*" files="NOTICE"/>
 
-  <!-- Suppress JavadocPackage in the test packages -->
-  <suppress checks="JavadocPackage" files="src[/\\]test[/\\]java[/\\]"/>
-</suppressions>
+/** Scripts that test basic streaming SQL functionality. */
+package net.hydromatic.streamsqltck.basic;
+
+// End package-info.java

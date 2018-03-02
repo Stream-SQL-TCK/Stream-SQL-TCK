@@ -1,8 +1,3 @@
-<?xml version="1.0"?>
-<!DOCTYPE suppressions PUBLIC
-        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
-        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
-<!--
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,15 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<suppressions>
-  <!-- Suppress checks on generated files. -->
-  <suppress checks=".*" files=".*[/\\]target[/\\]maven-archiver[/\\]pom.properties"/>
-  <suppress checks=".*" files="git.properties"/>
-  <suppress checks=".*" files="release.properties"/>
-  <suppress checks=".*" files="LICENSE"/>
-  <suppress checks=".*" files="NOTICE"/>
+package net.hydromatic.streamsqltck;
 
-  <!-- Suppress JavadocPackage in the test packages -->
-  <suppress checks="JavadocPackage" files="src[/\\]test[/\\]java[/\\]"/>
-</suppressions>
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+
+/** Stream definition. */
+public class Stream {
+  public final String name;
+  public final List<Column> columns;
+
+  /** Create via {@link net.hydromatic.streamsqltck.ScriptBuilder}. */
+  Stream(String name, List<Column> columns) {
+    this.name = Preconditions.checkNotNull(name);
+    this.columns = ImmutableList.copyOf(columns);
+  }
+}
+
+// End Stream.java
